@@ -39,7 +39,7 @@ export const ActiveMarker = memo(function ({ clinic, onClick }: IProps) {
             position={position}
             icon={{
                 url: activeMarker,
-                scaledSize: new window.google.maps.Size(60, 60),
+                scaledSize: new window.google.maps.Size(50, 50),
             }}
         />
     );

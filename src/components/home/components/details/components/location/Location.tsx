@@ -1,16 +1,9 @@
-import { useLoadScript } from '@react-google-maps/api';
 import Map from './Map';
 
 import './Location.css';
 
-const libraries: ["places"] = ["places"];
 
-function Location() {
-    const { isLoaded } = useLoadScript({
-        googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
-        libraries: libraries,
-    });
-
+function Location({isLoaded}: {isLoaded: boolean}) {
     return (
         <div className="location">
             {
