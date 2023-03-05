@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const baseURL = 'https://clinics-563e.onrender.com/api';
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BASE_API_URL,
+    baseURL: baseURL,
 });
 
 export default api;
