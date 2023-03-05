@@ -1,15 +1,19 @@
 import { GoogleMap } from '@react-google-maps/api';
-import { useMemo } from 'react';
-import {ClinicData} from "@/api/types/responses";
+import {useCallback, useMemo} from 'react';
 import {ActiveMarker, SideMarker} from "./Marker";
+import {useDispatch, useSelector} from "react-redux";
+import {activeIndexSelector, clinicsSelector} from "@/store/selectors/clinicsSelectors";
+import {setActiveIndex} from "@/store/actions/clinicsActions";
 
-interface IProps {
-    clinics: Array<ClinicData>;
-    activeIndex: number;
-    onMarkerClick: (index: number) => void;
-}
+function Map() {
+    const clinics = useSelector(clinicsSelector);
+    const activeIndex = useSelector(activeIndexSelector);
+    const dispatch = useDispatch();
 
-function Map({ clinics, activeIndex, onMarkerClick }: IProps) {
+    const onMarkerClick = useCallback((index: number) => {
+        dispatch(setActiveIndex(index));
+    }, [dispatch]);
+
     const center = useMemo(() => {
         return {
             lat: clinics[activeIndex].lat,

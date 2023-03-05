@@ -1,12 +1,10 @@
-import { ClinicData } from '@/api/types/responses';
-
 import './About.css';
+import {useSelector} from "react-redux";
+import {activeClinicSelector} from "@/store/selectors/clinicsSelectors";
 
-interface IProps {
-    clinic: ClinicData;
-}
+function About() {
+    const clinic = useSelector(activeClinicSelector);
 
-function About({ clinic }: IProps) {
     return (
         <div className="about">
             <p className="about__name">

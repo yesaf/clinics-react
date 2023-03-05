@@ -1,16 +1,9 @@
 import { memo, useMemo, useState } from 'react';
-import { ClinicData } from '@/api/types/responses';
 import About from './components/about/About';
 import Location from './components/location/Location';
 import './Details.css';
 
-interface IProps {
-    clinics: Array<ClinicData>;
-    activeIndex: number;
-    handleChoose: (index: number) => void;
-}
-
-function Details({ activeIndex, clinics, handleChoose }: IProps) {
+function Details() {
     const [screen, setScreen] = useState<'location' | 'about'>('location');
     const buttons = useMemo(() => {
         return (
@@ -35,13 +28,11 @@ function Details({ activeIndex, clinics, handleChoose }: IProps) {
             <div className="details-content">
                 {
                     screen === 'about' &&
-                        <About clinic={clinics[activeIndex]}/>
+                        <About/>
                 }
                 {
                     screen === 'location' &&
-                        <Location clinics={clinics}
-                                  activeIndex={activeIndex}
-                                  handleChoose={handleChoose}/>
+                        <Location/>
                 }
             </div>
 
