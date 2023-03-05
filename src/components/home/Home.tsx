@@ -48,7 +48,9 @@ function Home() {
                 </div>
                 {
                     searchResults.length > 0 &&
-                    <Details activeIndex={activeIndex} clinics={searchResults}/>
+                    <Details activeIndex={activeIndex}
+                             clinics={searchResults}
+                             handleChoose={handleChoose}/>
                 }
             </div>
 

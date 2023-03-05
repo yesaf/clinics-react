@@ -7,9 +7,10 @@ import './Details.css';
 interface IProps {
     clinics: Array<ClinicData>;
     activeIndex: number;
+    handleChoose: (index: number) => void;
 }
 
-function Details({ activeIndex, clinics }: IProps) {
+function Details({ activeIndex, clinics, handleChoose }: IProps) {
     const [screen, setScreen] = useState<'location' | 'about'>('location');
     const buttons = useMemo(() => {
         return (
@@ -38,7 +39,9 @@ function Details({ activeIndex, clinics }: IProps) {
                 }
                 {
                     screen === 'location' &&
-                        <Location clinics={clinics} activeIndex={activeIndex}/>
+                        <Location clinics={clinics}
+                                  activeIndex={activeIndex}
+                                  handleChoose={handleChoose}/>
                 }
             </div>
 

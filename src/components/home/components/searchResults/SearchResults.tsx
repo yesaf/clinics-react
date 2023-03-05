@@ -1,6 +1,6 @@
-import { ClinicData } from '@/api/types/responses';
+import {ClinicData} from '@/api/types/responses';
 import './SearchResults.css';
-import { useMemo, KeyboardEvent } from 'react';
+import {useMemo, KeyboardEvent, useRef, useCallback, useEffect} from 'react';
 import Loader from "@/components/loader/Loader";
 
 interface IProps {
@@ -10,18 +10,30 @@ interface IProps {
     isLoading: boolean;
 }
 
-function SearchResults({ results, activeIndex, onClick, isLoading }: IProps) {
-    const handleEnter = (index: number) => {
+function SearchResults({results, activeIndex, onClick, isLoading}: IProps) {
+    const activeRef = useRef<HTMLDivElement>(null);
+
+    const handleEnter = useCallback((index: number) => {
         return (e: KeyboardEvent<HTMLDivElement>) => {
             if (e.key === 'Enter') {
                 onClick(index);
             }
         };
-    };
+    }, [onClick]);
+
+    useEffect(() => {
+        if (activeRef.current) {
+            activeRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+            });
+        }
+    }, [activeIndex]);
 
     const resultsList = useMemo(() => results.map((result, index) => {
         return (
             <div key={index}
+                 ref={index === activeIndex ? activeRef : null}
                  className={`result ${index === activeIndex ? 'chosen-clinic' : ''}`}
                  tabIndex={0}
                  onKeyPress={handleEnter(index)}

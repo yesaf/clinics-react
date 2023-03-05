@@ -6,9 +6,10 @@ import {ActiveMarker, SideMarker} from "./Marker";
 interface IProps {
     clinics: Array<ClinicData>;
     activeIndex: number;
+    onMarkerClick: (index: number) => void;
 }
 
-function Map({ clinics, activeIndex }: IProps) {
+function Map({ clinics, activeIndex, onMarkerClick }: IProps) {
     const center = useMemo(() => {
         return {
             lat: clinics[activeIndex].lat,
@@ -18,17 +19,15 @@ function Map({ clinics, activeIndex }: IProps) {
 
     const markers = useMemo(() => {
         return clinics.map((clinic, index) => {
-            const position = {
-                lat: clinic.lat,
-                lng: clinic.lng,
-            }
 
             const Marker = activeIndex === index ? ActiveMarker : SideMarker;
+            const onClick = () => onMarkerClick(index);
 
             return (
                 <Marker
                     key={index}
-                    position={position}
+                    clinic={clinic}
+                    onClick={onClick}
                 />
             );
         });

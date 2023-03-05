@@ -9,9 +9,10 @@ const libraries: ["places"] = ["places"];
 interface IProps {
     clinics: Array<ClinicData>;
     activeIndex: number;
+    handleChoose: (index: number) => void;
 }
 
-function Location({ clinics, activeIndex }: IProps) {
+function Location({ clinics, activeIndex, handleChoose }: IProps) {
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
         libraries: libraries,
@@ -21,7 +22,9 @@ function Location({ clinics, activeIndex }: IProps) {
         <div className="location">
             {
                 isLoaded ?
-                    <Map clinics={clinics} activeIndex={activeIndex}/> :
+                    <Map clinics={clinics}
+                         activeIndex={activeIndex}
+                         onMarkerClick={handleChoose}/> :
                     <p className="map-loading">Loading...</p>
             }
         </div>
