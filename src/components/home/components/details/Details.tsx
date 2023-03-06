@@ -4,14 +4,11 @@ import Location from './components/location/Location';
 import './Details.css';
 import {useLoadScript} from "@react-google-maps/api";
 
-const libraries: ["places"] = ["places"];
-
 function Details() {
     const [screen, setScreen] = useState<'location' | 'about'>('location');
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string,
-        libraries: libraries,
     });
 
     const buttons = useMemo(() => {
